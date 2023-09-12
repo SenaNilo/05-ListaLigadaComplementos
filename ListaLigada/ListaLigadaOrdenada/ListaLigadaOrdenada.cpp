@@ -135,17 +135,28 @@ void inserirElemento()
 	{
 		NO* aux = primeiro;
 		NO* ante = aux;
+		bool exist = false;
 		
 		if (novo->valor > 0) {
-			while (novo->valor > aux->valor) {
+			while (novo->valor >= aux->valor) {
+				if (novo->valor == aux->valor) {
+					exist = true;
+				}
 				ante = aux;
 				aux = aux->prox;
 				if (aux == NULL) {
 					break;
 				}
 			}
-			ante->prox = novo;
-			novo->prox = aux;
+
+
+			if (exist == true) {
+				cout << "Valor ja contido na lista!" << endl;
+			}
+			else {
+				ante->prox = novo;
+				novo->prox = aux;
+			}
 		}
 		else {
 			if (aux->valor > novo->valor) {
@@ -153,7 +164,10 @@ void inserirElemento()
 				novo->prox = aux;
 			}
 			else {
-				while (aux->valor < novo->valor) {
+				while (aux->valor <= novo->valor) {
+					if (novo->valor == aux->valor) {
+						exist = true;
+					}
 					aux = aux->prox;
 					ante = aux;
 					aux = aux->prox;
@@ -161,8 +175,13 @@ void inserirElemento()
 						break;
 					}
 				}
-				ante->prox = novo;
-				novo->prox = aux;
+				if (exist == true) {
+					cout << "Valor ja contido na lista!" << endl;
+				}
+				else {
+					ante->prox = novo;
+					novo->prox = aux;
+				}
 			}
 		}
 	}
