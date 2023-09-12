@@ -133,12 +133,38 @@ void inserirElemento()
 	}
 	else
 	{
-		// procura o final da lista
 		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
+		NO* ante = aux;
+		
+		if (novo->valor > 0) {
+			while (novo->valor > aux->valor) {
+				ante = aux;
+				aux = aux->prox;
+				if (aux == NULL) {
+					break;
+				}
+			}
+			ante->prox = novo;
+			novo->prox = aux;
 		}
-		aux->prox = novo;
+		else {
+			if (aux->valor > novo->valor) {
+				primeiro = novo;
+				novo->prox = aux;
+			}
+			else {
+				while (aux->valor < novo->valor) {
+					aux = aux->prox;
+					ante = aux;
+					aux = aux->prox;
+					if (aux == NULL) {
+						break;
+					}
+				}
+				ante->prox = novo;
+				novo->prox = aux;
+			}
+		}
 	}
 }
 
@@ -153,3 +179,15 @@ void buscarElemento()
 }
 
 
+NO* posicaoElemento(int numero)
+{
+	NO* aux = primeiro;
+	while (aux != NULL) {
+		if (aux->valor == numero)
+		{
+			break;
+		}
+		aux = aux->prox;
+	}
+	return aux;
+}
